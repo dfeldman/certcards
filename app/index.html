@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Card Decks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0079BF, #5067C5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .deck-list {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        .deck-button {
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            padding: 20px;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .deck-button:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        .deck-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .deck-description {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flash Card Decks</h1>
+        <div class="deck-list" id="deckList"></div>
+    </div>
+
+    <script>
+        const decks = [
+            {
+                "description": "Test your knowledge of world capitals",
+                "name": "World Capitals",
+                "id": "world-capitals"
+            },
+            {
+                "description": "Practice basic math operations",
+                "name": "Math Basics",
+                "id": "math-basics"
+            },
+            {
+                "description": "Learn common English vocabulary",
+                "name": "English Vocabulary",
+                "id": "english-vocab"
+            },
+            {
+                "description": "Explore the periodic table of elements",
+                "name": "Chemistry Elements",
+                "id": "chemistry-elements"
+            }
+        ];
+
+        function createDeckButtons() {
+            const deckList = document.getElementById('deckList');
+            decks.forEach(deck => {
+                const button = document.createElement('button');
+                button.className = 'deck-button';
+                button.innerHTML = `
+                    <div class="deck-name">${deck.name}</div>
+                    <div class="deck-description">${deck.description}</div>
+                `;
+                button.addEventListener('click', () => {
+                    window.location.href = `study.html#${deck.id}.json`;
+                });
+                deckList.appendChild(button);
+            });
+        }
+
+        createDeckButtons();
+    </script>
+</body>
+</html>

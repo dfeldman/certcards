@@ -1,0 +1,125 @@
+{
+    "title": "AWS Multi-Account Environment Setup Quiz",
+    "cards": [
+      {
+        "id": "mae1",
+        "question": "What is a landing zone in the context of AWS?",
+        "answer": "A well-architected, multi-account AWS environment that is scalable and secure, serving as a starting point for quickly launching and deploying workloads and applications.",
+        "category": "Basics"
+      },
+      {
+        "id": "mae2",
+        "question": "What are the key components of a successful cloud adoption according to the guide?",
+        "answer": "Multi-account architecture, initial security baseline, identity and access management, governance, data security, network design, and logging.",
+        "category": "Cloud Adoption"
+      },
+      {
+        "id": "mae3",
+        "question": "Why is using multiple AWS accounts recommended?",
+        "answer": "Multiple accounts provide the highest level of resource and security isolation.",
+        "category": "Multi-Account Strategy"
+      },
+      {
+        "id": "mae4",
+        "question": "What are some reasons to create additional AWS accounts?",
+        "answer": "Administrative isolation, limited visibility, isolation to minimize scope of impact, strong isolation of recovery or auditing data.",
+        "category": "Multi-Account Strategy"
+      },
+      {
+        "id": "mae5",
+        "question": "What are the two main options for creating a landing zone on AWS?",
+        "answer": "AWS Control Tower and custom-built landing zone.",
+        "category": "Landing Zone Options"
+      },
+      {
+        "id": "mae6",
+        "question": "What is AWS Control Tower?",
+        "answer": "A managed service that sets up a landing zone based on multi-account best practices, centralizes identity and access management, and establishes pre-configured governance rules for security and compliance.",
+        "category": "AWS Control Tower"
+      },
+      {
+        "id": "mae7",
+        "question": "What are some of the blueprints implemented by AWS Control Tower?",
+        "answer": "Multi-account environment using AWS Organizations, cross-account security audits, identity management, and centralized logging.",
+        "category": "AWS Control Tower"
+      },
+      {
+        "id": "mae8",
+        "question": "How are preventive controls implemented in AWS Control Tower?",
+        "answer": "Through service control policies (SCPs), which are part of AWS Organizations.",
+        "category": "AWS Control Tower"
+      },
+      {
+        "id": "mae9",
+        "question": "How are detective controls implemented in AWS Control Tower?",
+        "answer": "Using AWS Config.",
+        "category": "AWS Control Tower"
+      },
+      {
+        "id": "mae10",
+        "question": "What is a custom-built landing zone?",
+        "answer": "An approach where you implement the baseline environment yourself, including identity and access management, governance, data security, network design, and logging.",
+        "category": "Custom Landing Zone"
+      },
+      {
+        "id": "mae11",
+        "question": "What is the recommended approach for building a landing zone according to the guide?",
+        "answer": "Start with AWS Control Tower to build the initial landing zone, then use Customizations for AWS Control Tower (CfCT) or Landing Zone Accelerator (LZA) for further customization.",
+        "category": "Recommended Approach"
+      },
+      {
+        "id": "mae12",
+        "question": "What is Customizations for AWS Control Tower (CfCT)?",
+        "answer": "A solution that provides extensive customization options for AWS Control Tower through AWS CloudFormation templates and service control policies (SCPs).",
+        "category": "Customization Options"
+      },
+      {
+        "id": "mae13",
+        "question": "What is the Landing Zone Accelerator (LZA)?",
+        "answer": "A solution to enhance your landing zone to align with compliance frameworks.",
+        "category": "Customization Options"
+      },
+      {
+        "id": "mae14",
+        "question": "What is AWS Organizations?",
+        "answer": "A service that provides the underlying infrastructure and capabilities for building and managing your AWS environment.",
+        "category": "AWS Services"
+      },
+      {
+        "id": "mae15",
+        "question": "What are service control policies (SCPs) in AWS Organizations?",
+        "answer": "Policies that provide centralized control over permissions for all accounts in an organization.",
+        "category": "AWS Services"
+      },
+      {
+        "id": "mae16",
+        "question": "What is the purpose of AWS CloudFormation in the context of landing zones?",
+        "answer": "It's used for creating and managing a collection of AWS resources, allowing for infrastructure as code and customization of the landing zone.",
+        "category": "AWS Services"
+      },
+      {
+        "id": "mae17",
+        "question": "What is AWS Service Catalog?",
+        "answer": "A service that allows organizations to create and manage catalogs of approved IT services for use on AWS.",
+        "category": "AWS Services"
+      },
+      {
+        "id": "mae18",
+        "question": "What is the Account Factory in AWS Control Tower?",
+        "answer": "A feature for provisioning new accounts in a standardized manner.",
+        "category": "AWS Control Tower"
+      },
+      {
+        "id": "mae19",
+        "question": "What is AWS IAM Identity Center?",
+        "answer": "A service used for centralized identity management and federated access in AWS Control Tower.",
+        "category": "AWS Services"
+      },
+      {
+        "id": "mae20",
+        "question": "What are the benefits of using AWS Control Tower for setting up a landing zone?",
+        "answer": "Fully managed service, AWS-provided controls and compliance policies, central dashboard for monitoring, and Account Factory for provisioning new accounts.",
+        "category": "AWS Control Tower"
+      }
+    ]
+  }

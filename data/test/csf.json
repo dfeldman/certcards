@@ -1,0 +1,305 @@
+{
+    "title": "NIST Cybersecurity Framework 2.0 Quiz",
+    "cards": [
+      {
+        "id": "csf1",
+        "question": "What are the six Functions of the CSF Core?",
+        "answer": "Govern, Identify, Protect, Detect, Respond, and Recover",
+        "category": "CSF Overview"
+      },
+      {
+        "id": "csf2", 
+        "question": "What does the GOVERN Function focus on?",
+        "answer": "Establishing, communicating, and monitoring the organization's cybersecurity risk management strategy, expectations, and policy",
+        "category": "CSF Functions"
+      },
+      {
+        "id": "csf3",
+        "question": "What is the purpose of the IDENTIFY Function?",
+        "answer": "To understand the organization's current cybersecurity risks",
+        "category": "CSF Functions"
+      },
+      {
+        "id": "csf4", 
+        "question": "What does the PROTECT Function involve?",
+        "answer": "Using safeguards to manage the organization's cybersecurity risks",
+        "category": "CSF Functions"
+      },
+      {
+        "id": "csf5",
+        "question": "What is the focus of the DETECT Function?",
+        "answer": "Finding and analyzing possible cybersecurity attacks and compromises",
+        "category": "CSF Functions"
+      },
+      {
+        "id": "csf6",
+        "question": "What does the RESPOND Function address?",
+        "answer": "Taking actions regarding a detected cybersecurity incident",
+        "category": "CSF Functions"
+      },
+      {
+        "id": "csf7",
+        "question": "What is the purpose of the RECOVER Function?",
+        "answer": "Restoring assets and operations affected by a cybersecurity incident",
+        "category": "CSF Functions"
+      },
+      {
+        "id": "csf8",
+        "question": "What are the three components of the CSF Core hierarchy?",
+        "answer": "Functions, Categories, and Subcategories",
+        "category": "CSF Core"
+      },
+      {
+        "id": "csf9",
+        "question": "What is a CSF Category?",
+        "answer": "A group of related cybersecurity outcomes that collectively comprise a CSF Function",
+        "category": "CSF Core"
+      },
+      {
+        "id": "csf10",
+        "question": "What is a CSF Subcategory?",
+        "answer": "A group of more specific outcomes of technical and management cybersecurity activities that comprise a CSF Category",
+        "category": "CSF Core"
+      },
+      {
+        "id": "csf11",
+        "question": "What is a CSF Organizational Profile?",
+        "answer": "A mechanism for describing an organization's current and/or target cybersecurity posture in terms of the CSF Core's outcomes",
+        "category": "CSF Profiles"
+      },
+      {
+        "id": "csf12",
+        "question": "What are the two types of CSF Organizational Profiles?",
+        "answer": "Current Profile and Target Profile",
+        "category": "CSF Profiles"
+      },
+      {
+        "id": "csf13",
+        "question": "What is a CSF Current Profile?",
+        "answer": "A part of an Organizational Profile that specifies the Core outcomes that an organization is currently achieving (or attempting to achieve)",
+        "category": "CSF Profiles"
+      },
+      {
+        "id": "csf14",
+        "question": "What is a CSF Target Profile?",
+        "answer": "A part of an Organizational Profile that specifies the desired Core outcomes that an organization has selected and prioritized for achieving its cybersecurity risk management objectives",
+        "category": "CSF Profiles"
+      },
+      {
+        "id": "csf15",
+        "question": "What is a CSF Community Profile?",
+        "answer": "A baseline of CSF outcomes that is created and published to address shared interests and goals among a number of organizations",
+        "category": "CSF Profiles"
+      },
+      {
+        "id": "csf16",
+        "question": "What are CSF Tiers?",
+        "answer": "Characterizations of the rigor of an organization's cybersecurity risk governance and management practices",
+        "category": "CSF Tiers"
+      },
+      {
+        "id": "csf17",
+        "question": "How many CSF Tiers are there and what are they?",
+        "answer": "Four: Partial (Tier 1), Risk Informed (Tier 2), Repeatable (Tier 3), and Adaptive (Tier 4)",
+        "category": "CSF Tiers"
+      },
+      {
+        "id": "csf18",
+        "question": "What is a CSF Informative Reference?",
+        "answer": "A mapping that indicates a relationship between a CSF Core outcome and an existing standard, guideline, regulation, or other content",
+        "category": "CSF Resources"
+      },
+      {
+        "id": "csf19",
+        "question": "What is a CSF Implementation Example?",
+        "answer": "A concise, action-oriented, notional illustration of a way to help achieve a CSF Core outcome",
+        "category": "CSF Resources"
+      },
+      {
+        "id": "csf20",
+        "question": "What is a CSF Quick Start Guide?",
+        "answer": "A supplementary resource that gives brief, actionable guidance on specific CSF-related topics",
+        "category": "CSF Resources"
+      },
+      {
+        "id": "csf21",
+        "question": "What are the three main ways organizations can use the CSF?",
+        "answer": "To understand and assess cybersecurity risks, prioritize cybersecurity activities, and communicate about cybersecurity risks",
+        "category": "CSF Usage"
+      },
+      {
+        "id": "csf22",
+        "question": "What is the purpose of the Organizational Context (GV.OC) Category in the GOVERN Function?",
+        "answer": "To understand the circumstances surrounding the organization's cybersecurity risk management decisions",
+        "category": "GOVERN Function"
+      },
+      {
+        "id": "csf23",
+        "question": "What does the Risk Management Strategy (GV.RM) Category in the GOVERN Function address?",
+        "answer": "Establishing and communicating the organization's priorities, constraints, risk tolerance and appetite statements, and assumptions",
+        "category": "GOVERN Function"
+      },
+      {
+        "id": "csf24",
+        "question": "What is the focus of the Roles, Responsibilities, and Authorities (GV.RR) Category in the GOVERN Function?",
+        "answer": "Establishing and communicating cybersecurity roles, responsibilities, and authorities to foster accountability, performance assessment, and continuous improvement",
+        "category": "GOVERN Function"
+      },
+      {
+        "id": "csf25",
+        "question": "What does the Policy (GV.PO) Category in the GOVERN Function address?",
+        "answer": "Establishing, communicating, and enforcing organizational cybersecurity policy",
+        "category": "GOVERN Function"
+      },
+      {
+        "id": "csf26",
+        "question": "What is the purpose of the Oversight (GV.OV) Category in the GOVERN Function?",
+        "answer": "Using results of organization-wide cybersecurity risk management activities and performance to inform, improve, and adjust the risk management strategy",
+        "category": "GOVERN Function"
+      },
+      {
+        "id": "csf27",
+        "question": "What does the Cybersecurity Supply Chain Risk Management (GV.SC) Category in the GOVERN Function focus on?",
+        "answer": "Identifying, establishing, managing, monitoring, and improving cyber supply chain risk management processes",
+        "category": "GOVERN Function"
+      },
+      {
+        "id": "csf28",
+        "question": "What are the three Categories in the IDENTIFY Function?",
+        "answer": "Asset Management (ID.AM), Risk Assessment (ID.RA), and Improvement (ID.IM)",
+        "category": "IDENTIFY Function"
+      },
+      {
+        "id": "csf29",
+        "question": "What is the purpose of the Asset Management (ID.AM) Category in the IDENTIFY Function?",
+        "answer": "Identifying and managing assets that enable the organization to achieve business purposes",
+        "category": "IDENTIFY Function"
+      },
+      {
+        "id": "csf30",
+        "question": "What does the Risk Assessment (ID.RA) Category in the IDENTIFY Function address?",
+        "answer": "Understanding the cybersecurity risk to the organization, assets, and individuals",
+        "category": "IDENTIFY Function"
+      },
+      {
+        "id": "csf31",
+        "question": "What is the focus of the Improvement (ID.IM) Category in the IDENTIFY Function?",
+        "answer": "Identifying improvements to organizational cybersecurity risk management processes, procedures and activities across all CSF Functions",
+        "category": "IDENTIFY Function"
+      },
+      {
+        "id": "csf32",
+        "question": "What are the five Categories in the PROTECT Function?",
+        "answer": "Identity Management, Authentication, and Access Control (PR.AA); Awareness and Training (PR.AT); Data Security (PR.DS); Platform Security (PR.PS); and Technology Infrastructure Resilience (PR.IR)",
+        "category": "PROTECT Function"
+      },
+      {
+        "id": "csf33",
+        "question": "What is the purpose of the Identity Management, Authentication, and Access Control (PR.AA) Category in the PROTECT Function?",
+        "answer": "Limiting access to physical and logical assets to authorized users, services, and hardware and managing it commensurate with the assessed risk of unauthorized access",
+        "category": "PROTECT Function"
+      },
+      {
+        "id": "csf34",
+        "question": "What does the Awareness and Training (PR.AT) Category in the PROTECT Function address?",
+        "answer": "Providing the organization's personnel with cybersecurity awareness and training so that they can perform their cybersecurity-related tasks",
+        "category": "PROTECT Function"
+      },
+      {
+        "id": "csf35",
+        "question": "What is the focus of the Data Security (PR.DS) Category in the PROTECT Function?",
+        "answer": "Managing data consistent with the organization's risk strategy to protect the confidentiality, integrity, and availability of information",
+        "category": "PROTECT Function"
+      },
+      {
+        "id": "csf36",
+        "question": "What does the Platform Security (PR.PS) Category in the PROTECT Function address?",
+        "answer": "Managing the hardware, software, and services of physical and virtual platforms consistent with the organization's risk strategy",
+        "category": "PROTECT Function"
+      },
+      {
+        "id": "csf37",
+        "question": "What is the purpose of the Technology Infrastructure Resilience (PR.IR) Category in the PROTECT Function?",
+        "answer": "Managing security architectures with the organization's risk strategy to protect asset confidentiality, integrity, and availability, and organizational resilience",
+        "category": "PROTECT Function"
+      },
+      {
+        "id": "csf38",
+        "question": "What are the two Categories in the DETECT Function?",
+        "answer": "Continuous Monitoring (DE.CM) and Adverse Event Analysis (DE.AE)",
+        "category": "DETECT Function"
+      },
+      {
+        "id": "csf39",
+        "question": "What is the focus of the Continuous Monitoring (DE.CM) Category in the DETECT Function?",
+        "answer": "Monitoring assets to find anomalies, indicators of compromise, and other potentially adverse events",
+        "category": "DETECT Function"
+      },
+      {
+        "id": "csf40",
+        "question": "What does the Adverse Event Analysis (DE.AE) Category in the DETECT Function address?",
+        "answer": "Analyzing anomalies, indicators of compromise, and other potentially adverse events to characterize the events and detect cybersecurity incidents",
+        "category": "DETECT Function"
+      },
+      {
+        "id": "csf41",
+        "question": "What are the four Categories in the RESPOND Function?",
+        "answer": "Incident Management (RS.MA), Incident Analysis (RS.AN), Incident Response Reporting and Communication (RS.CO), and Incident Mitigation (RS.MI)",
+        "category": "RESPOND Function"
+      },
+      {
+        "id": "csf42",
+        "question": "What is the purpose of the Incident Management (RS.MA) Category in the RESPOND Function?",
+        "answer": "Managing responses to detected cybersecurity incidents",
+        "category": "RESPOND Function"
+      },
+      {
+        "id": "csf43",
+        "question": "What does the Incident Analysis (RS.AN) Category in the RESPOND Function address?",
+        "answer": "Conducting investigations to ensure effective response and support forensics and recovery activities",
+        "category": "RESPOND Function"
+      },
+      {
+        "id": "csf44",
+        "question": "What is the focus of the Incident Response Reporting and Communication (RS.CO) Category in the RESPOND Function?",
+        "answer": "Coordinating response activities with internal and external stakeholders as required by laws, regulations, or policies",
+        "category": "RESPOND Function"
+      },
+      {
+        "id": "csf45",
+        "question": "What does the Incident Mitigation (RS.MI) Category in the RESPOND Function address?",
+        "answer": "Performing activities to prevent expansion of an event and mitigate its effects",
+        "category": "RESPOND Function"
+      },
+      {
+        "id": "csf46",
+        "question": "What are the two Categories in the RECOVER Function?",
+        "answer": "Incident Recovery Plan Execution (RC.RP) and Incident Recovery Communication (RC.CO)",
+        "category": "RECOVER Function"
+      },
+      {
+        "id": "csf47",
+        "question": "What is the purpose of the Incident Recovery Plan Execution (RC.RP) Category in the RECOVER Function?",
+        "answer": "Performing restoration activities to ensure operational availability of systems and services affected by cybersecurity incidents",
+        "category": "RECOVER Function"
+      },
+      {
+        "id": "csf48",
+        "question": "What does the Incident Recovery Communication (RC.CO) Category in the RECOVER Function address?",
+        "answer": "Coordinating restoration activities with internal and external parties",
+        "category": "RECOVER Function"
+      },
+      {
+        "id": "csf49",
+        "question": "How can organizations integrate the CSF with other risk management programs?",
+        "answer": "By using it in conjunction with Enterprise Risk Management (ERM) and other ICT risk management efforts such as privacy, supply chain, and artificial intelligence risks",
+        "category": "CSF Integration"
+      },
+      {
+        "id": "csf50",
+        "question": "What are some NIST resources that describe the relationship between cybersecurity risk management and Enterprise Risk Management (ERM)?",
+        "answer": "NIST Cybersecurity Framework 2.0 – Enterprise Risk Management Quick-Start Guide, NIST IR 8286 series, SP 800-221, and SP 800-221A",
+        "category": "CSF Integration"
+      }
+    ]
+  }

@@ -1,0 +1,215 @@
+{
+    "title": "AWS IAM Policies Quiz",
+    "cards": [
+      {
+        "id": "iam1",
+        "question": "What are the six types of policies supported by AWS?",
+        "answer": "Identity-based policies, resource-based policies, permissions boundaries, Organizations SCPs, ACLs, and session policies",
+        "category": "Policy Types"
+      },
+      {
+        "id": "iam2",
+        "question": "What is the difference between managed and inline identity-based policies?",
+        "answer": "Managed policies can be attached to multiple users, groups, and roles, while inline policies are directly added to a single user, group, or role",
+        "category": "Identity-based Policies"
+      },
+      {
+        "id": "iam3",
+        "question": "What are the two types of managed policies?",
+        "answer": "AWS managed policies and customer managed policies",
+        "category": "Identity-based Policies"
+      },
+      {
+        "id": "iam4",
+        "question": "What is a resource-based policy?",
+        "answer": "A JSON policy document attached to a resource, such as an Amazon S3 bucket, granting permissions to specified principals",
+        "category": "Resource-based Policies"
+      },
+      {
+        "id": "iam5",
+        "question": "What is a permissions boundary?",
+        "answer": "An advanced feature that sets the maximum permissions an identity-based policy can grant to an IAM entity",
+        "category": "Permissions Boundaries"
+      },
+      {
+        "id": "iam6",
+        "question": "What is a Service Control Policy (SCP)?",
+        "answer": "A policy that specifies the maximum permissions for an organization or organizational unit (OU) in AWS Organizations",
+        "category": "Service Control Policies"
+      },
+      {
+        "id": "iam7",
+        "question": "What is an Access Control List (ACL)?",
+        "answer": "A service policy that allows you to control which principals in another account can access a resource",
+        "category": "Access Control Lists"
+      },
+      {
+        "id": "iam8",
+        "question": "What is a session policy?",
+        "answer": "An advanced policy passed as a parameter when creating a temporary session for a role or federated user",
+        "category": "Session Policies"
+      },
+      {
+        "id": "iam9",
+        "question": "What are the main elements of a JSON policy document structure?",
+        "answer": "Version, Statement (including Sid, Effect, Principal, Action, Resource, and Condition)",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam10",
+        "question": "What is the recommended Version to use in a JSON policy document?",
+        "answer": "2012-10-17",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam11",
+        "question": "What are the two possible values for the Effect element in a policy statement?",
+        "answer": "Allow and Deny",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam12",
+        "question": "In which circumstances is the Principal element required in a policy?",
+        "answer": "When creating a resource-based policy",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam13",
+        "question": "What does the Action element in a policy statement represent?",
+        "answer": "A list of actions that the policy allows or denies",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam14",
+        "question": "What does the Resource element in a policy statement represent?",
+        "answer": "A list of resources to which the actions apply",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam15",
+        "question": "What is the purpose of the Condition element in a policy statement?",
+        "answer": "To specify the circumstances under which the policy grants permission",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam16",
+        "question": "How does AWS evaluate policies when multiple statements or policies apply?",
+        "answer": "AWS applies a logical OR across the statements and policies",
+        "category": "Policy Evaluation"
+      },
+      {
+        "id": "iam17",
+        "question": "What is the principle of least privilege in IAM policies?",
+        "answer": "Granting only the permissions required to perform a task",
+        "category": "Best Practices"
+      },
+      {
+        "id": "iam18",
+        "question": "What tool can you use to validate IAM policies?",
+        "answer": "IAM Access Analyzer",
+        "category": "Policy Management"
+      },
+      {
+        "id": "iam19",
+        "question": "How can you generate an IAM policy based on access activity?",
+        "answer": "Using IAM Access Analyzer to review AWS CloudTrail logs and generate a policy template",
+        "category": "Policy Management"
+      },
+      {
+        "id": "iam20",
+        "question": "What information does the Access Advisor tab provide?",
+        "answer": "Last accessed information for IAM users, groups, roles, or policies",
+        "category": "Policy Management"
+      },
+      {
+        "id": "iam21",
+        "question": "How can AWS CloudTrail help in refining IAM policies?",
+        "answer": "By providing detailed event information that can be used to reduce policy permissions",
+        "category": "Policy Management"
+      },
+      {
+        "id": "iam22",
+        "question": "What is the difference between AWS managed policies and customer managed policies?",
+        "answer": "AWS managed policies are created and managed by AWS, while customer managed policies are created and managed by the user in their AWS account",
+        "category": "Identity-based Policies"
+      },
+      {
+        "id": "iam23",
+        "question": "What happens to inline policies when the associated identity is deleted?",
+        "answer": "Inline policies are deleted when the associated identity (user, group, or role) is deleted",
+        "category": "Identity-based Policies"
+      },
+      {
+        "id": "iam24",
+        "question": "How can you enable cross-account access using resource-based policies?",
+        "answer": "By specifying an entire account or IAM entities in another account as the principal in the resource-based policy",
+        "category": "Resource-based Policies"
+      },
+      {
+        "id": "iam25",
+        "question": "What is a role trust policy?",
+        "answer": "A type of resource-based policy attached to an IAM role that defines which principal entities can assume the role",
+        "category": "Resource-based Policies"
+      },
+      {
+        "id": "iam26",
+        "question": "How do permissions boundaries affect resource-based policies?",
+        "answer": "Permissions boundaries do not limit permissions granted by resource-based policies",
+        "category": "Permissions Boundaries"
+      },
+      {
+        "id": "iam27",
+        "question": "How do Service Control Policies (SCPs) affect the AWS account root user?",
+        "answer": "SCPs limit permissions for the root user of member accounts in an AWS Organizations structure",
+        "category": "Service Control Policies"
+      },
+      {
+        "id": "iam28",
+        "question": "What is the main difference between ACLs and resource-based policies?",
+        "answer": "ACLs cannot be used to control access for a principal within the same account, while resource-based policies can",
+        "category": "Access Control Lists"
+      },
+      {
+        "id": "iam29",
+        "question": "How are the permissions for a session with a session policy determined?",
+        "answer": "The permissions are the intersection of the identity-based policies and the session policies",
+        "category": "Session Policies"
+      },
+      {
+        "id": "iam30",
+        "question": "What API operations can you use to create a role session and pass session policies?",
+        "answer": "AssumeRole, AssumeRoleWithSAML, or AssumeRoleWithWebIdentity",
+        "category": "Session Policies"
+      },
+      {
+        "id": "iam31",
+        "question": "What is the purpose of the Sid element in a policy statement?",
+        "answer": "To provide an optional statement ID to differentiate between statements",
+        "category": "JSON Policy Structure"
+      },
+      {
+        "id": "iam32",
+        "question": "In what format are most AWS policies stored?",
+        "answer": "JSON (JavaScript Object Notation)",
+        "category": "Policy Basics"
+      },
+      {
+        "id": "iam33",
+        "question": "What tool can you use in the AWS Management Console to create and edit customer managed policies without using JSON?",
+        "answer": "The visual editor",
+        "category": "Policy Management"
+      },
+      {
+        "id": "iam34",
+        "question": "What does IAM Access Analyzer provide in addition to policy validation?",
+        "answer": "Additional policy checks with recommendations to help refine policies",
+        "category": "Policy Management"
+      },
+      {
+        "id": "iam35",
+        "question": "What are access level groupings used for in IAM policies?",
+        "answer": "To understand the level of access that a policy grants (List, Read, Write, Permissions management, or Tagging)",
+        "category": "Policy Management"
+      }
+    ]
+  }

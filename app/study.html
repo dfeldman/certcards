@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cert Cards</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: #333;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 5px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.5s ease-in-out;
+        }
+        .stats {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        h2 {
+            color: #2193b0;
+            margin-bottom: 20px;
+        }
+        .flashcard-content {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .scrollable {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .category-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .category-table td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+        .category-table .progress-bar {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="card"></div>
+
+    <script>
+        let flashcardData = [
+            { id: 'fr1', question: "What is the capital of France?", answer: "Paris", category: "Europe" },
+            { id: 'jp1', question: "What is the capital of Japan?", answer: "Tokyo", category: "Asia" },
+            { id: 'br1', question: "What is the capital of Brazil?", answer: "Brasília", category: "South America" },
+            { id: 'au1', question: "What is the capital of Australia?", answer: "Canberra", category: "Oceania" },
+            { id: 'eg1', question: "What is the capital of Egypt?", answer: "Cairo", category: "Africa" },
+            { id: 'de1', question: "What is the capital of Germany?", answer: "Berlin", category: "Europe" },
+            { id: 'cn1', question: "What is the capital of China?", answer: "Beijing", category: "Asia" },
+            { id: 'ca1', question: "What is the capital of Canada?", answer: "Ottawa", category: "North America" },
+        ];
+
+        let deckTitle = "Default Deck";
+        let cardStatus = JSON.parse(localStorage.getItem('cardStatus')) || {};
+        let selectedCategories = JSON.parse(localStorage.getItem('selectedCategories')) || {};
+        let seenCards = new Set();
+        let currentCard = null;
+        let isFlipped = false;
+        let studyTime = 0;
+        let isSessionStarted = false;
+        let showAllCards = false;
+        let timerInterval;
+
+        let categories = [];
+
+        async function initializeApp() {
+            const hash = window.location.hash.slice(1);
+            if (hash) {
+                try {
+                    const deckId = hash.replace('.json', ''); // Remove .json if present
+                    const response = await fetch(`/data/${deckId}.json`);
+                    const data = await response.json();
+                    flashcardData = data.cards;
+                    deckTitle = data.title;
+                } catch (error) {
+                    console.error("Error loading deck:", error);
+                }
+            }
+
+            categories = [...new Set(flashcardData.map(card => card.category))];
+            categories.forEach(category => {
+                if (selectedCategories[category] === undefined) {
+                    selectedCategories[category] = true;
+                }
+            });
+            renderApp();
+        }
+
+        function renderApp() {
+            const app = document.getElementById('app');
+            if (showAllCards) {
+                app.innerHTML = renderAllCards();
+            } else if (!isSessionStarted) {
+                app.innerHTML = renderCategorySelection();
+            } else if (isAllCardsKnown() && seenCards.size === getFilteredCards().length) {
+                app.innerHTML = renderAllCardsKnown();
+            } else {
+                app.innerHTML = renderFlashcard();
+            }
+        }
+
+        function renderCategorySelection() {
+            const anySelected = Object.values(selectedCategories).some(Boolean);
+            return `
+                <h2>${deckTitle}</h2>
+                <table class="category-table">
+                    ${categories.map(category => `
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="${category}" class="checkbox" 
+                                       ${selectedCategories[category] ? 'checked' : ''}
+                                       onchange="handleCategoryToggle('${category}')">
+                                <label for="${category}">${category}</label>
+                            </td>
+                            <td style="width: 60%;">
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: ${getCategoryCompletion(category)}%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </table>
+                <div class="button-container">
+                    <button class="button" onclick="handleStartSession()" ${!anySelected ? 'disabled' : ''}>Start Session</button>
+                    <button class="button" onclick="setShowAllCards(true)">View All Cards</button>
+                    <button class="button" onclick="showResetConfirmation()">Reset</button>
+                    <button class="button" onclick="showAbout()">About</button>
+                </div>
+            `;
+        }
+
+        function renderAllCards() {
+            return `
+                <h2>All Cards</h2>
+                <div class="scrollable">
+                    <table>
+                        <tr>
+                            <th>Category</th>
+                            <th>Question</th>
+                            <th>Answer</th>
+                            <th>Status</th>
+                        </tr>
+                        ${flashcardData.map(card => `
+                            <tr>
+                                <td>${card.category}</td>
+                                <td>${card.question}</td>
+                                <td>${card.answer}</td>
+                                <td>${cardStatus[card.id] ? 'Known' : 'Unknown'}</td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                </div>
+                <button class="button" onclick="setShowAllCards(false)">Back to Selection</button>
+            `;
+        }
+
+        function renderFlashcard() {
+            if (!currentCard) {
+                selectNextCard();
+            }
+            const progress = (getKnownCards().length / getFilteredCards().length) * 100;
+
+            return `
+                <h3>${currentCard.category}</h3>
+                <div class="flashcard-content">
+                    <h2>${isFlipped ? "Answer" : "Question"}</h2>
+                    <p style="font-size: 1.2em; margin: 20px 0;">${isFlipped ? currentCard.answer : currentCard.question}</p>
+                </div>
+                ${!isFlipped 
+                    ? `<button class="button" onclick="handleFlip()">Flip</button>`
+                    : `
+                        <button class="button" style="background-color: #4CAF50;" onclick="handleResponse(true)">Know it</button>
+                        <button class="button" style="background-color: #f44336;" onclick="handleResponse(false)">Don't Know</button>
+                    `
+                }
+                <div class="progress-bar" style="width: 100%;">
+                    <div class="progress" style="width: ${progress}%"></div>
+                </div>
+                <div class="stats">
+                    <p>Time: ${formatTime(studyTime)} | Known cards: ${getKnownCards().length} / ${getFilteredCards().length}</p>
+                </div>
+                <button class="button" style="background-color: #2196F3;" onclick="handleEndSession()">End Session</button>
+            `;
+        }
+
+        function renderAllCardsKnown() {
+            return `
+                <h2>Congratulations!</h2>
+                <p>You've learned all the cards in this deck!</p>
+                <p>Time spent studying: ${formatTime(studyTime)}</p>
+                <button class="button" onclick="handleKeepGoing()">Keep Going</button>
+                <button class="button" onclick="handleEndSession()">End Session</button>
+            `;
+        }
+
+        function showResetConfirmation() {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <h2>Reset All Cards?</h2>
+                <p>This will set all cards to unknown. This action cannot be undone.</p>
+                <button class="button" onclick="handleReset()">Yes, Reset</button>
+                <button class="button" onclick="renderApp()">No, Cancel</button>
+            `;
+        }
+
+        function showAbout() {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <h2>About Flashcard App</h2>
+                <p>[Placeholder for app details]</p>
+                <button class="button" onclick="renderApp()">Back</button>
+            `;
+        }
+
+        function handleCategoryToggle(category) {
+            selectedCategories[category] = !selectedCategories[category];
+            localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
+            renderApp();
+        }
+
+        function handleStartSession() {
+            if (Object.values(selectedCategories).some(Boolean)) {
+                isSessionStarted = true;
+                seenCards.clear();
+                currentCard = null;
+                startTimer();
+                renderApp();
+            }
+        }
+
+        function setShowAllCards(value) {
+            showAllCards = value;
+            renderApp();
+        }
+
+        function handleFlip() {
+            isFlipped = true;
+            renderApp();
+        }
+
+        function handleResponse(known) {
+            cardStatus[currentCard.id] = known;
+            localStorage.setItem('cardStatus', JSON.stringify(cardStatus));
+            seenCards.add(currentCard.id);
+            isFlipped = false;
+            currentCard = null;
+            renderApp();
+        }
+
+        function handleEndSession() {
+            isSessionStarted = false;
+            stopTimer();
+            seenCards.clear();
+            currentCard = null;
+            renderApp();
+        }
+
+        function handleKeepGoing() {
+            seenCards.clear();
+            currentCard = null;
+            isSessionStarted = true;
+            renderApp();
+        }
+
+        function handleReset() {
+            cardStatus = {};
+            localStorage.setItem('cardStatus', JSON.stringify(cardStatus));
+            renderApp();
+        }
+
+        function selectNextCard() {
+            const filteredCards = getFilteredCards();
+            const unseenCards = filteredCards.filter(card => !seenCards.has(card.id));
+
+            if (unseenCards.length > 0) {
+                if (Math.random() < 0.2) {
+                    const knownCards = filteredCards.filter(card => cardStatus[card.id]);
+                    if (knownCards.length > 0) {
+                        currentCard = knownCards[Math.floor(Math.random() * knownCards.length)];
+                    } else {
+                        currentCard = unseenCards[Math.floor(Math.random() * unseenCards.length)];
+                    }
+                } else {
+                    const unknownCards = unseenCards.filter(card => !cardStatus[card.id]);
+                    if (unknownCards.length > 0) {
+                        currentCard = unknownCards[Math.floor(Math.random() * unknownCards.length)];
+                    } else {
+                        currentCard = unseenCards[Math.floor(Math.random() * unseenCards.length)];
+                    }
+                }
+            } else {
+                // All cards have been seen, pick a random card from all filtered cards
+                currentCard = filteredCards[Math.floor(Math.random() * filteredCards.length)];
+            }
+        }
+
+        function getFilteredCards() {
+            return flashcardData.filter(card => selectedCategories[card.category]);
+        }
+
+        function getKnownCards() {
+            return getFilteredCards().filter(card => cardStatus[card.id]);
+        }
+
+        function isAllCardsKnown() {
+            return getFilteredCards().every(card => cardStatus[card.id]);
+        }
+
+        function startTimer() {
+            studyTime = 0;
+            timerInterval = setInterval(() => {
+                studyTime++;
+                renderApp();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function getCategoryCompletion(category) {
+            const cardsInCategory = flashcardData.filter(card => card.category === category);
+            const knownCards = cardsInCategory.filter(card => cardStatus[card.id]).length;
+            return ((knownCards / cardsInCategory.length) * 100).toFixed(0);
+        }
+
+        initializeApp();
+    </script>
+</body>
+</html>
