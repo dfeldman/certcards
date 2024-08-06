@@ -62,12 +62,21 @@ def generate_questions(text, n_questions, api_key):
         print(f"Generating questions for section {index + 1}/{len(sections)}...")
         try:
             prompt_text = f"Generate {n_questions} detailed educational flashcards including question, answer, and category based on the following text: {section}"
-            response = openai.Completion.create(
-                engine="text-davinci-002",
-                prompt=PROMPT_TEXT.format(),
-                max_tokens=1500,
-                n=n_questions
+
+            response = client.chat.completions.create(
+                model="gpt-4-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a creative assistant."},
+                    {"role": "user", "content": prompt_text}
+                ]
             )
+            
+            if response and response.choices and len(response.choices) > 0:
+                content = response.choices[0].message.content.strip()
+                return content
+            else:
+                raise Exception("Failed to generate conversation.")
+
             all_questions.extend(json.loads(response.choices[0].text))
         except Exception as e:
             print(f"Error generating questions for section {index + 1}: {e}")
