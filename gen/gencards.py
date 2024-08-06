@@ -4,16 +4,17 @@ import json
 from datetime import datetime
 import requests
 from PyPDF2 import PdfReader
-import trifalatura
-import openai
+import trafilatura
+from openai import OpenAI
+import traceback
 
-MAX_CHARS_PER_PASS = 800  # Adjust as necessary based on typical use case and API constraints
+MAX_CHARS_PER_PASS = 10000  # Adjust as necessary based on typical use case and API constraints
 
 PROMPT_TEXT = """
 Based on the following text, generate {n_questions} educational flashcards. Each flashcard should include a question, an answer, and a category. The output must be formatted as a JSON list of objects.
 
 Text snippet:
-"{section}"
+"{text}"
 
 The array of results should look like this:
 [{{
@@ -42,7 +43,7 @@ def download_document(url):
     
     try:
         if 'html' in content_type:
-            return trifalatura.extract(response.text), 'html'
+            return trafilatura.extract(response.text), 'html'
         elif 'pdf' in content_type:
             reader = PdfReader(response.content)
             text = ''.join([page.extract_text() for page in reader.pages if page.extract_text() is not None])
@@ -51,18 +52,23 @@ def download_document(url):
             raise ValueError("Unsupported file type")
     except Exception as e:
         print(f"Error processing the document: {e}")
+        traceback.print_exc()
         sys.exit(1)
 
 def generate_questions(text, n_questions, api_key):
-    openai.api_key = api_key
+    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+
+    #openai.api_key = api_key
     sections = [text[i:i+MAX_CHARS_PER_PASS] for i in range(0, len(text), MAX_CHARS_PER_PASS)]
     all_questions = []
+    prompt_text = PROMPT_TEXT.format(n_questions=n_questions, text=text, api_key=api_key)
 
     for index, section in enumerate(sections):
         print(f"Generating questions for section {index + 1}/{len(sections)}...")
         try:
-            prompt_text = f"Generate {n_questions} detailed educational flashcards including question, answer, and category based on the following text: {section}"
-
+            #prompt_text = f"Generate {n_questions} detailed educational flashcards including question, answer, and category based on the following text: {section}"
+            prompt_text = PROMPT_TEXT.format(n_questions=n_questions, text=text, api_key=api_key)
+            print(prompt_text)
             response = client.chat.completions.create(
                 model="gpt-4-turbo",
                 messages=[
@@ -71,23 +77,22 @@ def generate_questions(text, n_questions, api_key):
                 ]
             )
             
-            if response and response.choices and len(response.choices) > 0:
-                content = response.choices[0].message.content.strip()
-                return content
-            else:
+            if not (response and response.choices and len(response.choices) > 0):
                 raise Exception("Failed to generate conversation.")
-
-            all_questions.extend(json.loads(response.choices[0].text))
+            print(response.choices[0].message.content)
+            all_questions.extend(json.loads(response.choices[0].message.content))
         except Exception as e:
             print(f"Error generating questions for section {index + 1}: {e}")
+            traceback.print_exc()
             continue  # Continue with next section even if one fails
 
+    # Todo validate output
     return all_questions
 
 def save_flashcards(flashcards, deckid, source_url, source_title):
     file_path = f"{deckid}.json"
     today_date = datetime.now().isoformat()
-    print("Saving flashcards...")
+    print("Saving flashcards...", flashcards)
 
     try:
         if os.path.exists(file_path):
@@ -95,10 +100,13 @@ def save_flashcards(flashcards, deckid, source_url, source_title):
                 existing_data = json.load(file)
                 current_id_suffix = len(existing_data["cards"]) + 1
                 for card in flashcards:
+                    print("X")
+                    print(card)
+                    print("Y")
                     card['id'] = f"{deckid}-{current_id_suffix}"
                     card['deckid'] = deckid
-                    card['sourceurl'] = source_url
-                    card['sourcetitle'] = source_title
+                    card['sourceUrl'] = source_url
+                    card['sourceTitle'] = source_title
                     card['date'] = today_date
                     current_id_suffix += 1
                 existing_data["cards"].extend(flashcards)
@@ -106,10 +114,11 @@ def save_flashcards(flashcards, deckid, source_url, source_title):
                 json.dump(existing_data, file, indent=4)
         else:
             for i, card in enumerate(flashcards, 1):
+                print(i, card)
                 card['id'] = f"{deckid}-{i}"
                 card['deckid'] = deckid
-                card['sourceurl'] = source_url
-                card['sourcetitle'] = source_title
+                card['sourceUrl'] = source_url
+                card['sourceTitle'] = source_title
                 card['date'] = today_date
             initial_data = {
                 "title": source_title,
@@ -119,6 +128,7 @@ def save_flashcards(flashcards, deckid, source_url, source_title):
                 json.dump(initial_data, file, indent=4)
     except Exception as e:
         print(f"Error saving flashcards: {e}")
+        traceback.print_exc()
         sys.exit(1)
 
 def main(deckid, url, title, n_questions):
