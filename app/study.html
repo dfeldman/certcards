@@ -238,7 +238,7 @@
                 <div class="flashcard-content">
                     <h2>${isFlipped ? "Answer" : "Question"}</h2>
                     <p style="font-size: 1.2em; margin: 20px 0;">${isFlipped ? currentCard.answer : currentCard.question}</p>
-                    ${isFlipped? <p style="font-size: 10pt; margin: 10px; color: gray"><a href="currentCard.sourceUrl">currentCard.sourceTitle</a> </p> : ''}
+			    ${isFlipped ? ` <p style="font-size: 10pt; margin: 10px; color: gray"><a href="${currentCard.sourceUrl}">${currentCard.sourceTitle}</a> </p>` : `  `}
                 </div>
                 ${!isFlipped 
                     ? `<button class="button" onclick="handleFlip()">Flip</button>`
